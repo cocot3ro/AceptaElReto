@@ -8,11 +8,32 @@ public class App {
             long n = sc.nextLong();
             long k = sc.nextLong() - 1;
 
-            System.out.println(recursive(n, k));
+            Solution solution = new Solution();
+
+            System.out.println(solution.solve(n, k));
+        }
+    }
+}
+
+class Solution {
+    private long[] levelSizes;
+
+    public char solve(long n, long k) {
+        computeLevelSizes(n);
+
+        return recursive(n, k);
+    }
+
+    private void computeLevelSizes(long n) {
+        levelSizes = new long[(int) n];
+        levelSizes[0] = 3;
+
+        for (int i = 1; i < levelSizes.length; i++) {
+            levelSizes[i] = levelSizes[i - 1] * 2 + 3 + i;
         }
     }
 
-    private static char recursive(long n, long k) {
+    private char recursive(long n, long k) {
         if (n == 1) {
             if (k == 0L) {
                 return 'B';
@@ -23,14 +44,7 @@ public class App {
             }
         }
 
-        long length = 3;
-        long prevLevelSize = 3;
-        for (long j = 0; j < n - 1; j++) {
-            length = length * 2 + j + 4;
-            if (j == n - 3) {
-                prevLevelSize = length;
-            }
-        }
+        long prevLevelSize = levelSizes[Math.max((int) n - 2, 0)];
 
         if (prevLevelSize <= k && k < prevLevelSize + 2 + n) {
             if (k == prevLevelSize) {
