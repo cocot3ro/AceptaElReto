@@ -1,31 +1,31 @@
 import java.util.Scanner;
-import java.util.Stack;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Solution solution = new Solution();
 
         for (int numero = sc.nextInt(); numero >= 0; numero = sc.nextInt()) {
-            Stack<Integer> pila = new Stack<>();
-            String entrada = numero + "";
+            System.out.println(solution.sumaDeDigitos(numero));
+        }
+    }
+}
 
-            for (int j = 0; j < entrada.length(); j++) {
-                pila.add(Integer.parseInt(entrada.charAt(j) + ""));
-            }
-
-            String salida = "";
-            int suma = 0;
-            boolean b = true;
-
-            while (!pila.isEmpty()) {
-                Integer dato = pila.pop();
-                salida = dato + (!b ? " + " + salida : "");
-                if (b) b = false;
-                suma += dato;
-            }
-            System.out.println(salida + " = " + suma);
+class Solution {
+    public String sumaDeDigitos(int numero) {
+        if (numero < 10) {
+            return numero + " = " + numero;
         }
 
-        sc.close();
+        StringBuilder sb = new StringBuilder();
+
+        int suma = 0;
+        while (numero > 0) {
+            sb.insert(0, " + " + numero % 10);
+            suma += numero % 10;
+            numero /= 10;
+        }
+
+        return sb.substring(3) + " = " + suma;
     }
 }
