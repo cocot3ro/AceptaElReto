@@ -9,12 +9,23 @@ public class Aer252 {
         Scanner sc = new Scanner(System.in);
         String input;
         while (!((input = sc.nextLine()).equals("XXX"))) {
-            String fraseInversa = "";
-            input = input.toLowerCase().replaceAll("\\s", "");
-            for (int i = 0; i < input.length(); i++) {
-                fraseInversa += input.charAt(input.length() - 1 - i);
+            input = input.replaceAll("[^a-zA-Z]", "").toLowerCase();
+            
+            int i = 0;
+            int j = input.length() - 1;
+            
+            String ans = "SI";
+            
+            while (i < j) {
+                if (input.charAt(i) != input.charAt(j)) {
+                    ans = "NO";
+                    break;
+                }
+                i++;
+                j--;
             }
-            System.out.println(input.equals(fraseInversa)?"SI":"NO");
+
+            System.out.println(ans);
         }
     }
     
