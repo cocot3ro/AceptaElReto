@@ -3,40 +3,39 @@ import java.util.Scanner;
 public class App {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Solution solution = new Solution();
+        Scanner sc = new Scanner(System.in);
 
-        int n = scanner.nextInt();
-        scanner.nextLine();
-
-        for (int i = 0; i < n; i++) {
-            String horaEspejo = scanner.nextLine();
-
-            String horaReal = obtenerHoraReal(horaEspejo);
-            System.out.println(horaReal);
+        for (int i = Integer.parseInt(sc.nextLine()); i > 0; i--) {
+            System.out.println(solution.solve(sc.nextLine()));
         }
 
-        scanner.close();
+        sc.close();
     }
 
-    private static String obtenerHoraReal(String horaEspejo) {
+}
+
+class Solution {
+
+    public String solve(String horaEspejo) {
         String[] partes = horaEspejo.split(":");
-        int horas = Integer.parseInt(partes[0]);
-        int minutos = Integer.parseInt(partes[1]);
 
-        int horasReales = 12 - horas;
-        int minutosReales = (60 - minutos) % 60;
+        int h = Integer.parseInt(partes[0]);
+        int m = Integer.parseInt(partes[1]);
 
-        if (horasReales == 0) {
-            horasReales = 11;
-            if (minutosReales == 0) {
-                horasReales = 12;
-            }
-        } else if (horasReales == 12) {
-            horasReales = 0;
-        } else {
-            horasReales--;
+        int hh = 12 - h - 1;
+        int mm = (60 - m) % 60;
+
+        if (m >= 30) {
+            hh++;
         }
 
-        return String.format("%02d:%02d", horasReales, minutosReales);
+        hh = Math.min(12, Math.max(hh, 0));
+
+        if (hh == 0) {
+            hh = 12;
+        }
+
+        return String.format("%02d:%02d", hh, mm);
     }
 }
