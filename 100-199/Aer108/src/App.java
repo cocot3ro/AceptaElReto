@@ -13,13 +13,13 @@ public class App {
         categorias.put("EMPATE", "EMPATE");
 
         while (sc.hasNext()) {
-            Map<Character, List<Double>> registros = new HashMap<>();
+            Map<Character, List<Float>> registros = new HashMap<>();
 
-            registros.put('D', new ArrayList<Double>());
-            registros.put('A', new ArrayList<Double>());
-            registros.put('M', new ArrayList<Double>());
-            registros.put('I', new ArrayList<Double>());
-            registros.put('C', new ArrayList<Double>());
+            registros.put('D', new ArrayList<Float>());
+            registros.put('A', new ArrayList<Float>());
+            registros.put('M', new ArrayList<Float>());
+            registros.put('I', new ArrayList<Float>());
+            registros.put('C', new ArrayList<Float>());
 
             while (true) {
                 String[] input = sc.nextLine().split(" ");
@@ -28,22 +28,22 @@ public class App {
                 }
 
                 char categoria = input[0].charAt(0);
-                double valor = Double.parseDouble(input[1]);
+                float valor = Float.parseFloat(input[1]);
 
                 registros.get(categoria).add(valor);
             }
 
             String maxCat = "EMPATE";
-            double maxMedia = 0;
+            float maxMedia = 0;
 
             String minCat = "EMPATE";
-            double minMedia = Double.MAX_VALUE;
+            float minMedia = Float.MAX_VALUE;
 
-            Map<Character, Double> medias = new HashMap<>();
-            double mediaGlobal = 0;
+            Map<Character, Float> medias = new HashMap<>();
+            float mediaGlobal = 0;
 
-            for (Map.Entry<Character, List<Double>> entry : registros.entrySet()) {
-                double media = getMedia(entry.getValue());
+            for (Map.Entry<Character, List<Float>> entry : registros.entrySet()) {
+                float media = getMedia(entry.getValue());
                 mediaGlobal += media;
                 medias.put(entry.getKey(), media);
 
@@ -68,12 +68,12 @@ public class App {
         }
     }
 
-    private static double getMedia(List<Double> list) {
+    private static float getMedia(List<Float> list) {
         if (list.isEmpty()) return 0;
 
-        double ans = 0;
-        for (double d : list) {
-            ans += d;
+        float ans = 0;
+        for (float l : list) {
+            ans += l;
         }
         return ans / list.size();
     }
