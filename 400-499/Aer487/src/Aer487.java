@@ -6,17 +6,28 @@ public class Aer487 {
 
         for (int i = sc.nextInt(); i > 0; i--) {
             long n = sc.nextLong();
-            System.out.println(Solution.solve(n));
+            long start = System.currentTimeMillis();
+            long ans = Solution.solve(n);
+            long end = System.currentTimeMillis();
+            System.out.println(ans);
+            System.out.println("Time taken: " + (end - start) + "ms");
         }
     }
 }
 
 class Solution {
     public static long solve(long n) {
-        if (n < 3600) return (int) n;
+        long div = n / 3600;
 
-        long sum = 3600 + (n / 3600) + (n % 3600);
+        long ans = 3600 * div;
+        n -= (div * 3600);
+        n += div;
 
-        return sum + (sum % 3600 == 0 ? 1 : 0);
+        while (n >= 3600) {
+            n -= 3599;
+            ans += 3600;
+        }
+
+        return ans + n;
     }
 }
